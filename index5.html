@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Geog 483 Leaflet Tutorial</title>
+	<!-- This tutorial is based on the official Leaflet quickstart: http://leafletjs.com/examples/quick-start/ -->
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+
+</head>
+<body>
+
+<style>
+    	body { margin:0; padding:0; }
+    	#mapid { position:absolute; top:50px; bottom:50px; left:50px; width:500px; height:500px;}
+</style>
+
+<div id="mapid"</div>
+<script src="coffeeshop.geoJson" type="text/javascript"></script>
+<script type='text/javascript'>
+	var mymap = L.map('mapid').setView([43.47, -80.545], 15);
+
+	L.tileLayer("http://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, '
+	}).addTo(mymap);
+
+	var teaPrice = '';
+	var coffeePrices = '';
+
+	function onEachFeature(feature, layer) {
+    if (feature.properties) {
+    	coffeePrices = '';
+    	if (feature.properties.tea_price_ > 0)
+    	{
+    		teaPrice = "<b>Tea Price: </b>" + feature.properties.tea_price_;
+    	}
+    	else
+    	{
+    		teaPrice = "<b>Tea Price: </b> No price given, may not sell Tea!";
+    	}
+
+    	if (feature.properties.coffee_pri > 0)
+		{
+    		coffeePrices += "<b> Small Coffee: </b> $" + feature.properties.coffee_pri + "<br>";
+    	}
+    	else
+    	{
+    		coffeePrices += "<b>Small Coffee: </b> No price given, may not sell Small Coffee! <br>";
+    	}
+
+    	if (feature.properties.coffee_p_1 > 0)
+		{
+    		coffeePrices += "<b> Medium Coffee: </b> $" + feature.properties.coffee_p_1 + "<br>";
+    	}
+    	else
+    	{
+    		coffeePrices += "<b>Medium Coffee: </b> No price given, may not sell Medium Coffee! <br>";
+    	}
+
+    	if (feature.properties.coffee_p_2 > 0)
+		{
+    		coffeePrices += "<b> Large Coffee: </b> $" + feature.properties.coffee_p_2 + "<br>";
+    	}
+    	else
+    	{
+    		coffeePrices += "<b>Large Coffee: </b> No price given, may not sell Large Coffee! <br>";
+    	}
+
+
+        layer.bindPopup("<b> <u> <center>" + feature.properties.name + "</b> </u> </center> <br>" + coffeePrices + teaPrice);
+    }
+
+	}
+	var coffeeshop = new L.geoJson(coffeeshop, {
+		onEachFeature: onEachFeature
+	}).addTo(mymap);
+	</script>
+ </body>
+</html>

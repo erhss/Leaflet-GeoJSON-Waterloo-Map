@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Geog 483 Leaflet Tutorial</title>
+	<!-- This tutorial is based on the official Leaflet quickstart: http://leafletjs.com/examples/quick-start/ -->
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+
+</head>
+<body>
+
+<style>
+    	body { margin:0; padding:0; }
+    	#mapid { position:absolute; top:50px; bottom:50px; left:50px; width:500px; height:500px;}
+</style>
+
+<div id="mapid"</div>
+<script>
+
+	var mymap = L.map('mapid').setView([43.46999, -80.540642], 15);
+
+	L.tileLayer("http://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, '
+	}).addTo(mymap);
+
+	L.marker([43.466, -80.53]).addTo(mymap)
+		.bindPopup("<b>Default!</b><br />This is the default Popup").openPopup();
+		
+	L.marker([43.47247262645386,-80.54084122180939]).addTo(mymap)
+		.bindPopup("<b>Ring Road</b><br />This is the Ring Road!").openPopup();
+
+	L.marker([43.46813179229727,-80.54283142089844]).addTo(mymap)
+		.bindPopup("<b>Environment Buildings</b><br />These are Environment buildings; Here is a picture: <img src='http://www.oaa.on.ca/oaamedia/uploads/EYE_Fly_Media___01_5.jpeg' alt='Environment Building' height='100' width='150'>").openPopup();		
+
+	L.marker([43.469712437060096,-80.54219841957092]).addTo(mymap)
+		.bindPopup("<b>Dana Porter Library</b><br />This is the DanaPorter Library; Click <a href='https://uwaterloo.ca/library/services/hours'> HERE </a> to see the hours").openPopup();	
+
+
+	L.marker([43.47155776805438,-80.5421930551529]).addTo(mymap)
+		.bindPopup("<b>Earth Science Musium</b><br />This is the Earth Science Musium; Click <a href='https://uwaterloo.ca/earth-sciences-museum/'> HERE </a> for more information: ").openPopup();
+</script>
+</body>
+</html>
